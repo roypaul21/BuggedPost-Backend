@@ -26,11 +26,10 @@ def createBlogs():
         return (jsonify({"message": "Fill Up All Input Fields!"}), 
         400,
         )
-
     try: 
         BlogsModels.createBlogTable()
         BlogsModels.createBlog(blog_title, blog_content)
-    except Exeption as e:
+    except Exception  as e:
         return (jsonify({"message": str(e)}), 400)
     
     return jsonify({"message": "Blog Created Successfully!"}), 201
@@ -57,7 +56,7 @@ def updateBlog(blog_id):
     try: 
         BlogsModels.updateBlog(blog_id, blog_title, blog_content)
 
-    except Exeption as e:
+    except Exception  as e:
         return (jsonify({"message": str(e)}), 400)
     
     return jsonify({"message": "Blog Updated Successfully!"}), 200
@@ -68,7 +67,7 @@ def deleteBlog(blog_id):
     try: 
         BlogsModels.deleteBlog(blog_id)
 
-    except Exeption as e:
+    except Exception  as e:
         return (jsonify({"message": str(e)}), 400)
     
     return jsonify({"message": "Blog Removed Successfully!"}), 200
