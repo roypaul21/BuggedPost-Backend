@@ -15,11 +15,15 @@ app.config.from_mapping(
         MYSQL_DB=os.getenv("MYSQL_DB"),  
         MYSQL_USER=os.getenv("MYSQL_USER"),
         MYSQL_PASSWORD=os.getenv("MYSQL_PASSWORD"),
+        MYSQL_CURSORCLASS = "DictCursor",
     )
     
 mysql = MySQL(app)
 
-CORS(app)
+CORS(app, origins=["https://buggedpost.netlify.app", 
+                   "https://buggedpost.netlify.app/home-admin",
+                   "https://buggedpost.netlify.app/create-blog"
+                   ])
 
 
 

@@ -7,10 +7,10 @@ class BlogController:
 
         for blog in blogs:
             blog_dict = {
-                "blog_id": blog[0],
-                "blog_title": blog[1],
-                "blog_content": blog[2],
-                "blog_date": blog[3]
+                "blog_id": blog["blog_id"],
+                "blog_title": blog["blog_title"],
+                "blog_content": blog["blog_content"],
+                "blog_date": blog["blog_created"]
             }
             blogs_list.append(blog_dict)
         

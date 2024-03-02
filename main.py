@@ -3,10 +3,12 @@ from config import app
 from models import BlogsModels
 from contr import BlogController
 from flask_cors import cross_origin
+import datetime
 
 @app.route("/api/blogs", methods=["GET"])
 @cross_origin()
 def displayBlogs():
+    BlogsModels.createBlogTable()
     blog_list = BlogController.json_blogs(BlogsModels.displayBlog())
     return jsonify({"blogs": blog_list})
 
@@ -21,6 +23,7 @@ def SearchBlogs(search_input):
 def createBlogs():
     blog_title = request.json.get("blog_title")
     blog_content = request.json.get("blog_content")
+    current_datetime = datetime.datetime.now()
 
     if not blog_title or not blog_content:
         return (jsonify({"message": "Fill Up All Input Fields!"}), 
@@ -28,7 +31,7 @@ def createBlogs():
         )
     try: 
         BlogsModels.createBlogTable()
-        BlogsModels.createBlog(blog_title, blog_content)
+        BlogsModels.createBlog(blog_title, blog_content, current_datetime)
     except Exception  as e:
         return (jsonify({"message": str(e)}), 400)
     
@@ -73,4 +76,4 @@ def deleteBlog(blog_id):
     return jsonify({"message": "Blog Removed Successfully!"}), 200
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
