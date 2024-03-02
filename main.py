@@ -40,15 +40,13 @@ def createBlogs():
 @app.route("/api/update_blogs/<int:blog_id>", methods=["PATCH"])
 @cross_origin()
 def updateBlog(blog_id):
-
     blogs = BlogsModels.getBlog(blog_id) 
     data = request.json
-    blog_title = data.get("blog_title", blogs[1])
-    blog_content = data.get("blog_content", blogs[2])
-    
+    blog_title = data.get("blog_title", blogs["blog_title"])
+    blog_content = data.get("blog_content", blogs["blog_content"])
     if BlogController.isBlogExist(blog_id):
         return (jsonify({"message": "Blog Doesn't Exist!"}), 
-        400,
+        404,
         ) 
     
     if BlogController.BlogInputEmpty(blog_title, blog_content):
@@ -75,5 +73,6 @@ def deleteBlog(blog_id):
     
     return jsonify({"message": "Blog Removed Successfully!"}), 200
 
+
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)

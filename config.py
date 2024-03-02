@@ -22,9 +22,8 @@ mysql = MySQL(app)
 
 CORS(app, origins=["https://buggedpost.netlify.app", 
                    "https://buggedpost.netlify.app/home-admin",
-                   "https://buggedpost.netlify.app/create-blog"
+                   "https://buggedpost.netlify.app/create-blog",
                    ])
-
 
 
 
