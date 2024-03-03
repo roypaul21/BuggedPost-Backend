@@ -7,7 +7,7 @@ from flask_mysqldb import MySQL
 #load env
 load_dotenv(".env")
 
-app = Flask(__name__, static_folder='../frontend/dist', static_url_path='/')
+app = Flask(__name__)
 
 #Connect to Database
 app.config.from_mapping(
@@ -20,10 +20,5 @@ app.config.from_mapping(
     
 mysql = MySQL(app)
 
-CORS(app, origins=["https://buggedpost.netlify.app", 
-                   "https://buggedpost.netlify.app/home-admin",
-                   "https://buggedpost.netlify.app/create-blog",
-                   ])
-
-
+CORS(app, resources={r"/api/*": {"origins": "https://buggedpost.netlify.app"}})
 
