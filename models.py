@@ -18,14 +18,19 @@ class BlogsModels:
 
     def displayBlog():
         my_cursor = mysql.connection.cursor()
-        sql = "SELECT * FROM blogs"
+        sql = """SELECT users.username, blogs.* FROM blogs 
+                INNER JOIN users_blogs ON blogs.blog_id = users_blogs.blog_id 
+                INNER JOIN users ON users.user_id = users_blogs.user_id """
         my_cursor.execute(sql)
         blogs = my_cursor.fetchall()
         return blogs
 
     def searchBlog(search_input):
         my_cursor = mysql.connection.cursor()
-        sql = "SELECT * FROM blogs WHERE (blogs.blog_title LIKE %s)"
+        sql = """SELECT users.username, blogs.* FROM blogs 
+                INNER JOIN users_blogs ON blogs.blog_id = users_blogs.blog_id 
+                INNER JOIN users ON users.user_id = users_blogs.user_id 
+                WHERE (blogs.blog_title LIKE %s) """
         param = ('%' + search_input + '%',)
         my_cursor.execute(sql, param)
         blogs = my_cursor.fetchall()

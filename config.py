@@ -31,6 +31,8 @@ app.config.from_mapping(
         SESSION_REDIS = redis.from_url(os.getenv("REDIS_URL"))
     )
 
+app.config.update(SESSION_COOKIE_SAMESITE="None", SESSION_COOKIE_SECURE=True)
+
 #Connect to Database
 mysql = MySQL(app)
 

@@ -8,7 +8,6 @@ import datetime
 @app.route("/api/get_credentials", methods=["GET"])
 def getCredentials():
     user_id = session.get("user_id")
-    print(user_id)
     return (jsonify({"cred": user_id}))
 
 @app.route("/api/create_user", methods=["POST"])
@@ -71,7 +70,7 @@ def getUserBlogs():
     try:
         user_blog = UsersBlogsModel.displayUserBlogs(user_id)
         user_blog_list = BlogController.json_blogs(user_blog)
-
+        user_blog_list.reverse()
         return jsonify({"blogs": user_blog_list}) 
 
     except Exception as e:
@@ -86,27 +85,28 @@ def getSearchUserBlogs(search_input):
     try:
         user_blog = UsersBlogsModel.searchUserBlogs(user_id, search_input)
         user_blog_list = BlogController.json_blogs(user_blog)
+        user_blog_list.reverse()
 
         return jsonify({"blogs": user_blog_list}) 
 
     except Exception as e:
         return (jsonify({"message": str(e)}), 401)  
 
-    
-
 
 #---------------------------------BLOG POST----------------------------------
 #this is for future display all blogs so other users can see it
-"""@app.route("/api/blogs", methods=["GET"])
+@app.route("/api/blogs", methods=["GET"])
 def displayBlogs():
     BlogsModels.createBlogTable()
-    blog_list = BlogController.json_blogs(BlogsModels.displayBlog())
+    blog_list = BlogController.json_user_blogs(BlogsModels.displayBlog())
+    blog_list.reverse()
     return jsonify({"blogs": blog_list})
 
 @app.route("/api/blogs/<string:search_input>", methods=["GET"])
 def SearchBlogs(search_input):
-    blog_list = BlogController.json_blogs(BlogsModels.searchBlog(search_input))
-    return jsonify({"blogs": blog_list})"""
+    blog_list = BlogController.json_user_blogs(BlogsModels.searchBlog(search_input))
+    blog_list.reverse()
+    return jsonify({"blogs": blog_list})
 
 @app.route("/api/create_blogs", methods=["POST"])
 def createBlogs():
