@@ -8,9 +8,7 @@ import datetime
 @app.route("/api/get_credentials", methods=["GET"])
 def getCredentials():
     user_id = session.get("user_id")
-    """BlogsModels.createBlogTable()
-    UsersModel.createUsersTable()
-    UsersModel.createUserBlogsTable()"""
+    print(user_id)
     return (jsonify({"cred": user_id}))
 
 @app.route("/api/create_user", methods=["POST"])
@@ -80,7 +78,6 @@ def getUserBlogs():
         return (jsonify({"message": str(e)}), 401)  
 
     
-
 @app.route("/api/user_blogs/<string:search_input>", methods=["GET"])
 def getSearchUserBlogs(search_input):
     user_id = session.get("user_id")
@@ -165,4 +162,4 @@ def deleteBlog(blog_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
