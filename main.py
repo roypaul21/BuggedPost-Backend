@@ -52,6 +52,7 @@ def loginUser():
             return (jsonify({"message": " Wrong User Password!"}), 401 ,)
         
         session["user_id"] = user_id
+        
 
     except Exception as e:
         return (jsonify({"message": str(e)}), 401)
@@ -164,4 +165,4 @@ def deleteBlog(blog_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)

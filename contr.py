@@ -56,10 +56,9 @@ class UserController:
         hashed_password = hash.hexdigest()
 
         stored_user = UsersModel.getUser(username, hashed_password) 
-
         if not stored_user:
             return False
-        return stored_user["user_id"]
+        return stored_user['user_id']
     
 
 

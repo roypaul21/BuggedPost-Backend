@@ -23,7 +23,8 @@ app.config.from_mapping(
         MYSQL_CURSORCLASS = "DictCursor",
 
         SECRET_KEY = os.getenv("SECRET_KEY"),
-        SESSION_COOKIE_SECURE = "True",
+        SESSION_COOKIE_SAMESITE="None",
+        SESSION_COOKIE_SECURE = True,
         SESSION_TYPE = "redis",
         SESSION_PERMANENT = "False",
         SESSION_USE_SIGNER = "True",
