@@ -1,4 +1,5 @@
-from models import BlogsModels
+from models import BlogsModels, UsersModel, UsersBlogsModel
+import hashlib
 
 class BlogController:
     
@@ -29,3 +30,41 @@ class BlogController:
         
         else:
             return False
+
+class UserController:
+
+    def createUserContr(username, user_password, current_datetime):
+        hash = hashlib.new("SHA256")
+        hash.update(user_password.encode())
+        hashed_password = hash.hexdigest()
+
+        BlogsModels.createBlogTable()
+        UsersModel.createUsersTable()
+        UsersModel.createUserBlogsTable()
+        UsersModel.createUser(username, hashed_password, current_datetime)
+
+    def createUserBlogContr(blog_title, blog_content, current_datetime, user_id):
+        BlogsModels.createBlogTable()
+        BlogsModels.createBlog(blog_title, blog_content, current_datetime, user_id)
+        fetch_blog_id = BlogsModels.getBlogID(user_id)
+        UsersBlogsModel.createUsersBlogs(user_id, fetch_blog_id["blog_id"])
+
+
+    def loginUserContr(username, user_password):
+        hash = hashlib.new("SHA256")
+        hash.update(user_password.encode())
+        hashed_password = hash.hexdigest()
+
+        stored_user = UsersModel.getUser(username, hashed_password) 
+
+        if not stored_user:
+            return False
+        return stored_user["user_id"]
+    
+
+
+        
+    
+
+
+        
