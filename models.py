@@ -133,6 +133,15 @@ class UsersBlogsModel:
         user_blogs = my_cursor.fetchall()
         return user_blogs
     
+    def getUsernameBlogs(user_id):
+        my_cursor = mysql.connection.cursor()
+        sql = "SELECT users.username FROM users WHERE users.user_id=%s"
+        param = (user_id,)
+        my_cursor.execute(sql, param)
+        username = my_cursor.fetchone()
+        return username
+
+    
     def searchUserBlogs(user_id, search_input):
         my_cursor = mysql.connection.cursor()
         sql = """SELECT blogs.blog_id, blogs.blog_title, blogs.blog_content, blogs.blog_created FROM users 

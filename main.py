@@ -92,7 +92,17 @@ def getSearchUserBlogs(search_input):
     except Exception as e:
         return (jsonify({"message": str(e)}), 401)  
 
+@app.route("/api/username", methods=["GET"])
+def getUsernameBlogs():
+    user_id = session.get("user_id")
+    try:
+        username = UsersBlogsModel.getUsernameBlogs(user_id)
 
+    except Exception as e:
+        return (jsonify({"message": str(e)}), 401)  
+    
+    return jsonify({"username": username["username"]}) 
+    
 #---------------------------------BLOG POST----------------------------------
 #this is for future display all blogs so other users can see it
 @app.route("/api/blogs", methods=["GET"])
