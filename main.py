@@ -7,6 +7,9 @@ import datetime
 #--------------------------USER--------------------------
 @app.route("/api/get_credentials", methods=["GET"])
 def getCredentials():
+    UsersModel.createUsersTable()
+    BlogsModels.createBlogTable()
+    UsersModel.createUserBlogsTable()
     user_id = session.get("user_id")
     return (jsonify({"cred": user_id}))
 
@@ -172,4 +175,4 @@ def deleteBlog(blog_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
